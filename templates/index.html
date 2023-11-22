@@ -1,0 +1,616 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="favicon.png" rel="icon" type="file/png">
+    <title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'assets/css/icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/uikit.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/tailwind.css' %}">
+</head>
+
+<body style='background-colour:red'>
+
+            <header>
+                <div class="header_inner">
+                    <form action="/search" method="POST">
+                        {% csrf_token %}
+                    <div class="left-side">
+                        <!-- Logo -->
+                        <div id="logo" class=" uk-hidden@s">
+                            <a href="home.html">
+                                <b><h1 style="text-transform: uppercase;">Fishare</h1></b>
+                            </a>
+                        </div>
+
+
+                        <!--<div class="triger" uk-toggle="target: #wrapper ; cls: sidebar-active">
+                            <i class="uil-bars"></i>
+                        </div>-->
+
+                        <!-- <div class="header_search">-->
+                        <div><a href="/">
+                            <img width="100" src="https://www.designmantic.com/logo-images/14265.png?company=Fishare&slogan=&verify=1" class="header-avatar" alt="%%%%%">
+                        </a></div>
+                            <input type="text" name="username" placeholder="Search for username.."> &nbsp; &nbsp;
+                            <button type="submit" class=""><img width="50" src="data:file/png;base64,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" alt="search"></button>
+                            <!--<div class="icon-search">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                            </div>-->
+                        <!--</div> -->
+
+                    </div>
+                    </form>
+                    <div class="right-side lg:pr-4">
+                        <a href="/admin" class="flex items-center space-x-2">
+                            <img width="50" src="data:file/jpeg;base64,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" alt="admin">
+
+                        </a>
+                         <!-- upload -->
+                        <a href="#"
+                            class="bg-pink-500 flex font-bold hidden hover:bg-pink-600 hover:text-white inline-block items-center lg:block max-h-10 mr-4 px-4 py-2 rounded shado text-white">
+                            <ion-icon name="add-circle" class="-mb-1
+                             mr-1 opacity-90 text-xl uilus-circle"></ion-icon> Upload File
+                        </a>
+                         <!-- upload dropdown box -->
+
+                        <div uk-dropdown="pos: top-right;mode:click ; animation: uk-animation-slide-bottom-small" class="header_dropdown">
+    
+                            <!-- notivication header -->
+                            <div class="px-4 py-3 -mx-5 -mt-4 mb-5 border-b">
+                                <h4>Upload Pics</h4>
+                            </div>
+
+                            <!-- notification contents -->
+
+                            <div class="flex justify-center flex-center text-center">
+
+                                <div class="flex flex-col choose-upload text-center">
+
+                                    <div class="bg-gray-100 border-2 border-dashed flex flex-col h-24 items-center justify-center relative w-full rounded-lg  ">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-12">
+                                            <path d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z" />
+                                            <path d="M9 13h2v5a1 1 0 11-2 0v-5z" />
+                                        </svg>
+                                    </div>
+                                    <form action="upload" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <p class="my-3 leading-6"> Upload pics
+                                    </p>
+                                    <div>
+                                        <input type="file" name="file_upload">
+                                        <!--<a href="#" class="button soft-warning small"> Choose file</a>-->
+
+                                        <textarea clas="button soft-warning small" name="caption" placeholder="Caption..."></textarea>
+                                        <br>
+                                        <button class="button bg-blue-700" type="submit">Upload</button>
+                                    </div>
+                                     </form>
+
+                                    <a href="#" class="uk-text-muted mt-3 uk-link"
+                                        uk-toggle="target: .choose-upload ;  animation: uk-animation-slide-right-small, uk-animation-slide-left-medium; queued: true">
+                                        Or Import Video </a>
+                                </div>
+    
+                                <div class="uk-flex uk-flex-column choose-upload" hidden>
+                                    <div class="mx-auto flex flex-col h-24 items-center justify-center relative w-full rounded-lg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-12">
+                                            <path fill-rule="evenodd" d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <p class="my-3 leading-6"> Import videos from YouTube <br> Copy / Paste your video link here </p>
+                                    <form class="uk-grid-small" uk-grid>
+                                         <div class="uk-width-expand">
+                                            <input type="text" class="uk-input uk-form-small  bg-gray-200 " style="box-shadow:none" placeholder="Paste link">
+                                        </div>
+                                        <div class="uk-width-auto"> <button type="submit" class="button soft-warning -ml-2">
+                                                Import </button> </div>
+                                    </form>
+                                    <a href="#" class="uk-text-muted mt-3 uk-link"
+                                        uk-toggle="target: .choose-upload ; animation: uk-animation-slide-left-small, uk-animation-slide-right-medium; queued: true">
+                                        Or Upload Video </a>
+                                </div>
+    
+                            </div>
+                          
+                            <div class="px-4 py-3 -mx-5 -mb-4 mt-5 border-t text-sm">
+                                Your file size Must be Maxmium 999MB
+                            </div>
+                        </div>
+                        
+                         <!-- Notification -->
+
+                        <!--<a href="#" class="header-links-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none"><path d="M12 22a2.02 2.02 0 0 1-2.01-2h4a2.02 2.02 0 0 1-.15.78a2.042 2.042 0 0 1-1.44 1.18h-.047A1.922 1.922 0 0 1 12 22zm8-3H4v-2l2-1v-5.5a8.065 8.065 0 0 1 .924-4.06A4.654 4.654 0 0 1 10 4.18V2h4v2.18c2.579.614 4 2.858 4 6.32V16l2 1v2z" fill="currentColor"/></g></svg>
+                        </a>
+                        <div uk-drop="mode: click;offset: 4" class="header_dropdown">
+                            <h4
+                                class="-mt-5 -mx-5 bg-gradient-to-t from-gray-100 to-gray-50 border-b font-bold px-6 py-3">
+                                Notification </h4>
+                            <ul class="dropdown_scrollbar" data-simplebar>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="{% static 'assets/files/avatars/avatar-1.jpg' %}" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <p> <strong class="text-link" >Taiye</strong>  
+                                                <span class="text-link"> is following you  </span>
+                                            </p>
+                                            <span class="time-ago"> 2 hours ago </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                
+
+                            </ul>
+                            <a href="#" class="see-all">See all</a>
+                        </div>-->
+                    
+
+                        <!-- Messages -->
+
+                        <!--
+                            <a href="#" class="header-links-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="0.5em" height="0.5em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><g fill="currentColor"><path d="M2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/></g></svg>
+                        </a>
+                        <div uk-drop="mode: click;offset: 4" class="header_dropdown">
+                            <h4
+                                class="-mt-5 -mx-5 bg-gradient-to-t from-gray-100 to-gray-50 border-b font-bold px-6 py-3">
+                                Messages </h4>
+                            <ul class="dropdown_scrollbar" data-simplebar>
+                                <li>
+                                    <a href="#">
+                                        <div class="drop_avatar"> <img src="{% static 'assets/files/avatars/avatar-1.jpg' %}" alt="">
+                                        </div>
+                                        <div class="drop_content">
+                                            <strong> Taiye </strong> <time> 6:43 PM</time>
+                                            <p> hi tomi </p>
+                                        </div>
+                                    </a>
+                                </li>
+                                
+
+
+                            </ul>
+                            <a href="#" class="see-all">See all</a>
+                        </div>-->
+
+                        <!-- profile -->
+
+                        <a href="#">
+                            <img src="{{user_profile.profileimg.url}}" class="header-avatar" alt="">
+                        </a>
+                        <div uk-drop="mode: click;offset:9" class="header_dropdown profile_dropdown border-t">
+                            <ul>
+                                <li><a href="/settings"> Account setting </a> </li>
+                                <li><a href="#"> Help </a> </li>
+                                <li><a href="logout"> Log Out</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </header>
+
+
+            <div class="container m-auto">
+
+                <!--<h1 class="lg:text-2xl text-lg font-extrabold leading-none text-gray-900 tracking-tight mb-5"> Feed </h1>--->
+
+                <div class="lg:flex justify-center lg:space-x-10 lg:space-y-0 space-y-5">
+
+                    <!-- left sidebar-->
+                    <div class="space-y-5 flex-shrink-0 lg:w-7/12">
+
+                        <!-- Default video-->
+
+
+                        {% for defaults in default reversed %}
+
+                        <div class="bg-white shadow rounded-md  -mx-2 lg:mx-0">
+
+                            <!-- post header-->
+                            <div class="flex justify-between items-center px-4 py-3">
+                                <div class="flex flex-1 items-center space-x-4">
+                                    <!--<a href="#">
+                                        <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
+                                            <img src="{{user_profile.profileimg.url}}" class="bg-gray-200 border border-white rounded-full w-8 h-8">
+                                        </div>
+                                    </a>-->
+                                    <span class="block capitalize font-semibold "><a href='/'>@{{defaults.by}}</a></span>
+                                </div>
+                              <div>
+                                <a href="#"> <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 "></i> </a>
+                                <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100  " uk-drop="mode: hover;pos: top-right">
+
+                                    <ul class="space-y-1">
+                                      <li>
+                                          <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md ">
+                                           <i class="uil-share-alt mr-1"></i> Share
+                                          </a>
+                                      </li>
+                                      <li>
+                                          <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md ">
+                                           <i class="uil-edit-alt mr-1"></i>  Edit Post
+                                          </a>
+                                      </li>
+                                      <li>
+                                          <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md ">
+                                           <i class="uil-comment-slash mr-1"></i>   Disable comments
+                                          </a>
+                                      </li>
+                                      <li>
+                                          <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md ">
+                                           <i class="uil-favorite mr-1"></i>  Add favorites
+                                          </a>
+                                      </li>
+                                      <li>
+                                        <hr class="-mx-2 my-2 ">
+                                      </li>
+                                      <li>
+                                          <a href="#" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md ">
+                                           <i class="uil-trash-alt mr-1"></i>  Delete
+                                          </a>
+                                      </li>
+                                    </ul>
+
+                                </div>
+                              </div>
+                            </div>
+
+                            <div uk-lightbox>
+                             <a href="{{ post.file.url }}" data-caption="">
+                                 {% if defaults.file.url|slice:"-4:" == '.jpg' %}
+                                     <img src="{{ defaults.file.url }}" alt="">
+                                 {% elif defaults.file.url|slice:"-5:" == '.jpeg' %}
+                                        <img src="{{ defaults.file.url }}" alt="">
+                                 {% elif defaults.file.url|slice:"-4:" == '.png' %}
+                                        <img src="{{ defaults.file.url }}" alt="">
+                                    {% elif defaults.file.url|slice:"-4:" == '.gif' %}
+                                        <img src="{{ defaults.file.url }}" alt="">
+                                 {% elif defaults.file.url|slice:"-4:" == '.mp4' %}
+                                        <video controls width="100%">
+                                            <source src="{{ defaults.file.url }}" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    {% elif defaults.file.url|slice:"-4:" == '.avi' %}
+                                        <video controls width="100%">
+                                            <source src="{{ defaults.file.url }}" type="video/avi">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    {% elif defaults.file.url|slice:"-4:" == '.mov' %}
+                                        <video controls width="100%">
+                                            <source src="{{ defaults.file.url }}" type="video/mov">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    {% else %}
+                                        <p>Unsupported file type</p>
+                                    {% endif %}
+                                </a>
+                        </div>
+
+
+
+                            <div class="py-3 px-4 space-y-3">
+
+                                <div class="flex space-x-4 lg:font-bold">
+                                    <a href="/like-post?post_id={{post.id}}" class="flex items-center space-x-2">
+
+
+                                    </a>
+                                    <!--Trial -->
+                                    <a href="#" class="flex items-center space-x-2">
+                                        <div class="p-2 rounded-full text-black">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="25" height="25" class="">
+                                                <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+
+                                    </a>
+                                    <a href="{{post.file.url}}" class="flex items-center space-x-2 flex-1 justify-end" download>
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="25" height="25" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><g fill="currentColor"><path d="M8.5 1.5A1.5 1.5 0 0 1 10 0h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h6c-.314.418-.5.937-.5 1.5v6h-2a.5.5 0 0 0-.354.854l2.5 2.5a.5.5 0 0 0 .708 0l2.5-2.5A.5.5 0 0 0 10.5 7.5h-2v-6z"/></g></svg>
+
+                                    </a>
+                                </div>
+                                <!--<div class="flex items-center space-x-3">
+                                    <div class="flex items-center">
+                                        <img src="{% static 'assets/files/avatars/avatar-1.jpg' %}" alt="" class="w-6 h-6 rounded-full border-2 border-white ">
+                                        <img src="{% static 'assets/files/avatars/avatar-4.jpg' %}" alt="" class="w-6 h-6 rounded-full border-2 border-white  -ml-2">
+                                        <img src="{% static 'assets/files/avatars/avatar-2.jpg' %}" alt="" class="w-6 h-6 rounded-full border-2 border-white  -ml-2">
+                                    </div>
+                                    <div class="">
+                                        Liked <strong> taiye</strong> and <strong> 209 Others </strong>
+                                    </div>
+                                </div>-->
+                                <p>
+                                    <a href="/"><strong>{{defaults.by}}</strong></a> {{defaults.name}}
+                                </p>
+
+                                <!-- <div class="border-t pt-4 space-y-4 ">
+                                    <div class="flex">
+                                        <div class="w-10 h-10 rounded-full relative flex-shrink-0">
+                                            <img src="{% static 'assets/files/avatars/avatar-1.jpg' %}" alt="" class="absolute h-full rounded-full w-full">
+                                        </div>
+                                        <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 h-full relative lg:ml-5 ml-2 lg:mr-20   ">
+                                            <p class="leading-6">Y'all like billie eillish? <urna class="i uil-heart"></urna> <i
+                                                    class="uil-grin-tongue-wink"> </i> </p>
+                                            <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 "></div>
+                                        </div>
+                                    </div>
+                                    <div class="flex">
+                                        <div class="w-10 h-10 rounded-full relative flex-shrink-0">
+                                            <img src="{% static 'assets/files/avatars/avatar-1.jpg' %}" alt="" class="absolute h-full rounded-full w-full">
+                                        </div>
+                                        <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 h-full relative lg:ml-5 ml-2 lg:mr-20   ">
+                                            <p class="leading-6">She's my favourite <i class="uil-grin-tongue-wink-alt"></i>
+                                            </p>
+                                            <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 "></div>
+                                        </div>
+                                    </div>
+                                </div>-->
+
+                                <!--<div class="bg-gray-100 bg-gray-100 rounded-full rounded-md relative ">
+                                    <input type="text" placeholder="post a comment" class="bg-transparent max-h-10 shadow-none">
+                                    <div class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
+                                        <a href="#"> <i class="uil-file"></i></a>
+                                        <a href="#"> <i class="uil-video"></i></a>
+                                    </div>
+                                </div>-->
+
+                            </div>
+
+                        </div>
+                        {% endfor %}
+
+                        <!-- post 1-->
+                        {% for post in posts reversed %}
+
+                        <div class="bg-white shadow rounded-md  -mx-2 lg:mx-0">
+
+                            <!-- post header-->
+                            <div class="flex justify-between items-center px-4 py-3">
+                                <div class="flex flex-1 items-center space-x-4">
+                                    <!--<a href="#">
+                                        <div class="bg-gradient-to-tr from-yellow-600 to-pink-600 p-0.5 rounded-full">
+                                            <img src="{{user_profile.profileimg.url}}" class="bg-gray-200 border border-white rounded-full w-8 h-8">
+                                        </div>
+                                    </a>-->
+                                    <span class="block capitalize font-semibold "><a href='/profile/{{post.user}}'>@{{post.user}}</a></span>
+                                </div>
+                              <div>
+                                <a href="#"> <i class="icon-feather-more-horizontal text-2xl hover:bg-gray-200 rounded-full p-2 transition -mr-1 "></i> </a>
+                                <div class="bg-white w-56 shadow-md mx-auto p-2 mt-12 rounded-md text-gray-500 hidden text-base border border-gray-100  " uk-drop="mode: hover;pos: top-right">
+
+                                    <ul class="space-y-1">
+                                      <li>
+                                          <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md ">
+                                           <i class="uil-share-alt mr-1"></i> Share
+                                          </a>
+                                      </li>
+                                      <li>
+                                          <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md ">
+                                           <i class="uil-edit-alt mr-1"></i>  Edit Post
+                                          </a>
+                                      </li>
+                                      <li>
+                                          <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md ">
+                                           <i class="uil-comment-slash mr-1"></i>   Disable comments
+                                          </a>
+                                      </li>
+                                      <li>
+                                          <a href="#" class="flex items-center px-3 py-2 hover:bg-gray-200 hover:text-gray-800 rounded-md ">
+                                           <i class="uil-favorite mr-1"></i>  Add favorites
+                                          </a>
+                                      </li>
+                                      <li>
+                                        <hr class="-mx-2 my-2 ">
+                                      </li>
+                                      <li>
+                                          <a href="#" class="flex items-center px-3 py-2 text-red-500 hover:bg-red-100 hover:text-red-500 rounded-md ">
+                                           <i class="uil-trash-alt mr-1"></i>  Delete
+                                          </a>
+                                      </li>
+                                    </ul>
+
+                                </div>
+                              </div>
+                            </div>
+
+                            <div uk-lightbox>
+                             <a href="{{ post.file.url }}" data-caption="">
+                                 {% if post.file.url|slice:"-4:" == '.jpg' %}
+                                     <img src="{{ post.file.url }}" alt="">
+                                 {% elif post.file.url|slice:"-5:" == '.jpeg' %}
+                                        <img src="{{ post.file.url }}" alt="">
+                                 {% elif post.file.url|slice:"-4:" == '.png' %}
+                                        <img src="{{ post.file.url }}" alt="">
+                                    {% elif post.file.url|slice:"-4:" == '.gif' %}
+                                        <img src="{{ post.file.url }}" alt="">
+                                 {% elif post.file.url|slice:"-4:" == '.mp4' %}
+                                        <video controls width="100%">
+                                            <source src="{{ post.file.url }}" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    {% elif post.file.url|slice:"-4:" == '.avi' %}
+                                        <video controls width="100%">
+                                            <source src="{{ post.file.url }}" type="video/avi">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    {% elif post.file.url|slice:"-4:" == '.mov' %}
+                                        <video controls width="100%">
+                                            <source src="{{ post.file.url }}" type="video/mov">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    {% else %}
+                                        <p>Unsupported file type</p>
+                                    {% endif %}
+                                </a>
+                        </div>
+
+
+
+                            <div class="py-3 px-4 space-y-3">
+
+                                <div class="flex space-x-4 lg:font-bold">
+                                    <a href="/like-post?post_id={{post.id}}" class="flex items-center space-x-2">
+                                        <div class="p-2 rounded-full text-black">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="25" height="25" class="">
+                                                <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
+                                            </svg>
+                                            {% if post.no_of_likes == 0 %}
+                                            <p>No Likes</p>
+                                            {% elif post.no_of_likes == 1 %}
+                                            <p>Liked {{post.no_of_likes}} person</p>
+                                            {% else %}
+                                            <p>Liked by {{post.no_of_likes}} people</p>
+                                            {% endif %}
+                                        </div>
+
+                                    </a>
+                                    <!--Trial -->
+                                    <a href="#" class="flex items-center space-x-2">
+                                        <div class="p-2 rounded-full text-black">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="25" height="25" class="">
+                                                <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+
+                                    </a>
+                                    <a href="{{post.file.url}}" class="flex items-center space-x-2 flex-1 justify-end" download>
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="25" height="25" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><g fill="currentColor"><path d="M8.5 1.5A1.5 1.5 0 0 1 10 0h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h6c-.314.418-.5.937-.5 1.5v6h-2a.5.5 0 0 0-.354.854l2.5 2.5a.5.5 0 0 0 .708 0l2.5-2.5A.5.5 0 0 0 10.5 7.5h-2v-6z"/></g></svg>
+
+                                    </a>
+                                </div>
+                                <!--<div class="flex items-center space-x-3">
+                                    <div class="flex items-center">
+                                        <img src="{% static 'assets/files/avatars/avatar-1.jpg' %}" alt="" class="w-6 h-6 rounded-full border-2 border-white ">
+                                        <img src="{% static 'assets/files/avatars/avatar-4.jpg' %}" alt="" class="w-6 h-6 rounded-full border-2 border-white  -ml-2">
+                                        <img src="{% static 'assets/files/avatars/avatar-2.jpg' %}" alt="" class="w-6 h-6 rounded-full border-2 border-white  -ml-2">
+                                    </div>
+                                    <div class="">
+                                        Liked <strong> taiye</strong> and <strong> 209 Others </strong>
+                                    </div>
+                                </div>-->
+                                <p>
+                                    <a href="/profile/{{post.user}}"><strong>{{post.user}}</strong></a> {{post.caption}}
+                                </p>
+
+                                <!-- <div class="border-t pt-4 space-y-4 ">
+                                    <div class="flex">
+                                        <div class="w-10 h-10 rounded-full relative flex-shrink-0">
+                                            <img src="{% static 'assets/files/avatars/avatar-1.jpg' %}" alt="" class="absolute h-full rounded-full w-full">
+                                        </div>
+                                        <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 h-full relative lg:ml-5 ml-2 lg:mr-20   ">
+                                            <p class="leading-6">Y'all like billie eillish? <urna class="i uil-heart"></urna> <i
+                                                    class="uil-grin-tongue-wink"> </i> </p>
+                                            <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 "></div>
+                                        </div>
+                                    </div>
+                                    <div class="flex">
+                                        <div class="w-10 h-10 rounded-full relative flex-shrink-0">
+                                            <img src="{% static 'assets/files/avatars/avatar-1.jpg' %}" alt="" class="absolute h-full rounded-full w-full">
+                                        </div>
+                                        <div class="text-gray-700 py-2 px-3 rounded-md bg-gray-100 h-full relative lg:ml-5 ml-2 lg:mr-20   ">
+                                            <p class="leading-6">She's my favourite <i class="uil-grin-tongue-wink-alt"></i>
+                                            </p>
+                                            <div class="absolute w-3 h-3 top-3 -left-1 bg-gray-100 transform rotate-45 "></div>
+                                        </div>
+                                    </div>
+                                </div>-->
+
+                                <!--<div class="bg-gray-100 bg-gray-100 rounded-full rounded-md relative ">
+                                    <input type="text" placeholder="post a comment" class="bg-transparent max-h-10 shadow-none">
+                                    <div class="absolute bottom-0 flex h-full items-center right-0 right-3 text-xl space-x-2">
+                                        <a href="#"> <i class="uil-file"></i></a>
+                                        <a href="#"> <i class="uil-video"></i></a>
+                                    </div>
+                                </div>-->
+
+                            </div>
+
+                        </div>
+                        {% endfor %}
+
+
+
+
+
+                    </div>
+
+                    <!-- right sidebar-->
+                    <div class="lg:w-5/12">
+
+                        <div class="bg-white  shadow-md rounded-md overflow-hidden">
+
+                            <div class="bg-gray-50  border-b border-gray-100 flex items-baseline justify-between py-4 px-6 ">
+                                <h2 class="font-semibold text-lg">Users You Can Follow</h2>
+                                <a href="#"> Refresh</a>
+                            </div>
+                           {% for suggestion in suggestions_username_profile_list %}
+                            <div class="divide-gray-300 divide-gray-50 divide-opacity-50 divide-y px-4 ">
+                                <div class="flex items-center justify-between py-3">
+                                    <div class="flex flex-1 items-center space-x-4">
+                                        <a href="/profile/{{suggestion.user}}">
+                                            <img src="{{suggestion.profileimg.url}}" class="bg-gray-200 rounded-full w-10 h-10">
+                                        </a>
+                                        <div class="flex flex-col">
+                                            <span class="block capitalize font-semibold"> {{suggestion.user}}</span>
+                                            <span class="block capitalize text-sm"> {{suggestion.bio}} </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <a href="/profile/{{suggestion.user}}" class="border border-gray-200 font-semibold px-4 py-1 rounded-full hover:bg-pink-600 hover:text-white hover:border-pink-600 "> View</a>
+                                </div>
+
+
+                            </div>
+                            {% endfor %}
+
+                        </div>
+
+                      
+
+                    </div>
+
+                </div>               
+          
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+ <!-- Scripts
+    ================================================== -->
+    <script src="{% static 'assets/js/tippy.all.min.js' %}"></script>  
+    <script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/uikit.js' %}"></script>
+    <script src="{% static 'assets/js/simplebar.js' %}"></script>
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+
+
+    <script src="{% static '../../unpkg.com/ionicons%405.2.3/dist/ionicons.js' %}"></script>
+</body >
+
+
+</html>
